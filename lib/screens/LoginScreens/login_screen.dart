@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import '../screens/LoginScreens/auth_screen.dart';
-import '../screens/LoginScreens/recover_password_screen.dart';
-import 'home_screen.dart';
+import '../LoginScreens/auth_screen.dart';
+import '../LoginScreens/recover_password_screen.dart';
+import '../../navigations/bottom_tab_navigator.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -107,7 +107,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       Navigator.push(
                       context,
                         MaterialPageRoute(
-                        builder: (context) => const HomeScreen(),
+                        builder: (context) => const BottomTabNavigator(),
                         ),
                       );
                     },
