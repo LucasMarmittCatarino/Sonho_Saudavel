@@ -61,23 +61,38 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
               ),
 
-              const SizedBox(height: 26),
+              const SizedBox(height: 14),
 
-              SizedBox(
-                width: 140,
-                height: 45,
-                child: ElevatedButton(
-                onPressed: () {},
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color(0xFF504EB4),
-                ),
-                child: const Text(
-                  'Entrar',
-                  style: TextStyle(color: Colors.white, fontWeight: FontWeight.w600),
+              Container(
+                alignment: Alignment.center,
+                child: GestureDetector(
+                  onTap: () {},
+                  child: const Text(
+                    'Esqueceu sua senha?',
+                    style: TextStyle(fontWeight: FontWeight.w400, color: Color.fromARGB(123, 57, 56, 57)),
+                  ),
                 ),
               ),
+
+              const SizedBox(height: 26),
+
+              Container(
+                alignment: Alignment.center,
+                child: SizedBox(
+                  width: 300,
+                  height: 45,
+                  child: ElevatedButton(
+                    onPressed: () {},
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: const Color(0xFF504EB4),
+                    ),
+                    child: const Text(
+                      'Entrar',
+                      style: TextStyle(color: Colors.white, fontWeight: FontWeight.w600),
+                    ),
+                  ),
+                ),
               )
-              
             ],
           ),
         ),
