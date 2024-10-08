@@ -1,16 +1,15 @@
 import 'package:flutter/material.dart';
-import 'recover_password_screen.dart';
+import 'login_screen.dart';
 
-class LoginScreen extends StatefulWidget {
-  const LoginScreen({super.key});
+class RecoverPasswordScreen extends StatefulWidget {
+  const RecoverPasswordScreen({super.key});
 
   @override
-  _LoginScreenState createState() => _LoginScreenState();
+  _RecoverPasswordScreenState createState() => _RecoverPasswordScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _RecoverPasswordScreenState extends State<RecoverPasswordScreen> {
   final TextEditingController _emailController = TextEditingController();
-  final TextEditingController _passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +24,7 @@ class _LoginScreenState extends State<LoginScreen> {
             children: <Widget>[
 
               const Text(
-                  'Login',
+                  'Recuperar senha',
                   style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold, color: Color(0xFF393839)),
               ),
 
@@ -48,54 +47,25 @@ class _LoginScreenState extends State<LoginScreen> {
 
               const SizedBox(height: 26),
 
-              SizedBox(
-                width: 300,
-                child: TextField(
-                  controller: _passwordController,
-                  obscureText: true,
-                  decoration: const InputDecoration(
-                    labelText: 'Senha',
-                    labelStyle: TextStyle(color: Color.fromARGB(143, 57, 56, 57)),
-                    border: OutlineInputBorder(),
-                    prefixIcon: Icon(Icons.lock, color: Color(0xFF393839)),
-                  ),
-                ),
-              ),
-
-              const SizedBox(height: 14),
-
-              Container(
-                alignment: Alignment.center,
-                child: GestureDetector(
-                  onTap: () {
-                    Navigator.push(
-                    context,
-                      MaterialPageRoute(
-                      builder: (context) => const RecoverPasswordScreen(),
-                      ),
-                    );
-                  },
-                  child: const Text(
-                    'Esqueceu sua senha?',
-                    style: TextStyle(fontWeight: FontWeight.w400, color: Color.fromARGB(123, 57, 56, 57)),
-                  ),
-                ),
-              ),
-
-              const SizedBox(height: 26),
-
               Container(
                 alignment: Alignment.center,
                 child: SizedBox(
                   width: 300,
                   height: 45,
                   child: ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const LoginScreen(),
+                        ),
+                      );
+                    },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: const Color(0xFF504EB4),
                     ),
                     child: const Text(
-                      'Entrar',
+                      'Solicitar nova senha',
                       style: TextStyle(color: Colors.white, fontWeight: FontWeight.w600),
                     ),
                   ),
@@ -111,7 +81,6 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   void dispose() {
     _emailController.dispose();
-    _passwordController.dispose();
     super.dispose();
   }
 }
