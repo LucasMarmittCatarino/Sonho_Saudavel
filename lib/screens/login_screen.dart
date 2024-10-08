@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'auth_screen.dart';
 import 'recover_password_screen.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -15,7 +16,18 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+          leading: IconButton(
+            icon: const Icon(Icons.arrow_back),
+            onPressed: () {
+              Navigator.pushAndRemoveUntil(
+                context,
+                MaterialPageRoute(builder: (context) => const AuthScreen()),
+                (route) => false,
+              );
+            },
+          ),
+        ),
       body: Center(
         child: Padding(
           padding: const EdgeInsets.all(16.0),
