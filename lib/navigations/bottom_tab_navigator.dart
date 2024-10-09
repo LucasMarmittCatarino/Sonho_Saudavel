@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import '../screens/HomeScreen/home_screen.dart';
-import '../screens/ScheduleScreen/schedule_screen.dart';
 import '../screens/AlarmScreen/alarm_screen.dart';
 import '../screens/ProfileScreen/profile_screen.dart';
+import '../screens/ScheduleScreen/schedule_screen.dart';
 
 class BottomTabNavigator extends StatefulWidget {
   const BottomTabNavigator({super.key});
