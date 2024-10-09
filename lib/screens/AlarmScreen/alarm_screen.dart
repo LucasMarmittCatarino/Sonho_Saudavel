@@ -5,8 +5,18 @@ class AlarmScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Center(
-      child: Text('Tela Alarme'),
+    return const Scaffold(
+      backgroundColor: Color(0xFF080E1C),
+      body: Center(
+        child: Column(
+          children: [
+
+            Text('teste'),
+
+
+          ],
+        )
+      ),
     );
   }
 }

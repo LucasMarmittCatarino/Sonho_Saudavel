@@ -38,7 +38,7 @@ class _BottomTabNavigatorState extends State<BottomTabNavigator> {
       bottomNavigationBar: Container(
         height: 90,
         decoration: const BoxDecoration(
-          color: Color(0xFF141b2e),
+          color: Color.fromARGB(255, 31, 38, 66),
           borderRadius: BorderRadius.only(
             topLeft: Radius.circular(20),
             topRight: Radius.circular(20),

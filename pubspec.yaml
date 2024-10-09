@@ -25,4 +25,5 @@ flutter:
   assets:
     - lib/assets/png/profile_man.png
     - lib/assets/png/profile_woman.png
+    - lib/assets/png/moon.png
   uses-material-design: true
