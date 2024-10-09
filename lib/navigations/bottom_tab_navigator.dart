@@ -30,6 +30,7 @@ class _BottomTabNavigatorState extends State<BottomTabNavigator> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: const Color(0xFF080E1C),
       body: IndexedStack(
         index: _selectedIndex,
         children: _screens,
