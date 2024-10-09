@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'auth_screen.dart';
-import 'recover_password_screen.dart';
+import '../LoginScreens/auth_screen.dart';
+import '../LoginScreens/recover_password_screen.dart';
+import '../../navigations/bottom_tab_navigator.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -102,7 +103,14 @@ class _LoginScreenState extends State<LoginScreen> {
                   width: 300,
                   height: 45,
                   child: ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.push(
+                      context,
+                        MaterialPageRoute(
+                        builder: (context) => const BottomTabNavigator(),
+                        ),
+                      );
+                    },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: const Color(0xFF504EB4),
                     ),
