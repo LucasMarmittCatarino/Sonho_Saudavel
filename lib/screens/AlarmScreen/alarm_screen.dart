@@ -11,8 +11,6 @@ class AlarmScreen extends StatelessWidget {
         child: Column(
           children: [
 
-            Text('teste'),
-
 
           ],
         )

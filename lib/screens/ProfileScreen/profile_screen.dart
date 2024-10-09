@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import '../ProfileDetailsScreen/profile_details_screen.dart';
+import '../ConfigurationScreen/configuration_screen.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
@@ -57,7 +59,12 @@ class ProfileScreen extends StatelessWidget {
               height: 40,
               child: TextButton(
                 onPressed: () {
-                  // Ação do botão
+                  Navigator.push(
+                    context,
+                      MaterialPageRoute(
+                      builder: (context) => const ProfileDetailsScreen(),
+                    ),
+                  );
                 },
                 style: TextButton.styleFrom(
                   backgroundColor: const Color(0xFF141B2E),
@@ -91,7 +98,12 @@ class ProfileScreen extends StatelessWidget {
               height: 40,
               child: TextButton(
                 onPressed: () {
-                  // Ação do botão
+                  Navigator.push(
+                    context,
+                      MaterialPageRoute(
+                      builder: (context) => const ConfigurationScreen(),
+                    ),
+                  );
                 },
                 style: TextButton.styleFrom(
                   backgroundColor: const Color(0xFF141B2E),
