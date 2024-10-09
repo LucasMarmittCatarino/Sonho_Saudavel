@@ -36,37 +36,57 @@ class _BottomTabNavigatorState extends State<BottomTabNavigator> {
         children: _screens,
       ),
       bottomNavigationBar: Container(
-        height: 90,
+        height: 76,
         decoration: const BoxDecoration(
-          color: Color.fromARGB(255, 31, 38, 66),
+          color: Color(0xFF151A2E),
           borderRadius: BorderRadius.only(
             topLeft: Radius.circular(20),
             topRight: Radius.circular(20),
           ),
         ),
-        child: BottomNavigationBar(
-          currentIndex: _selectedIndex,
-          onTap: _onItemTapped,
-          backgroundColor: Colors.transparent,
-          selectedItemColor: Colors.white,
-          unselectedItemColor: const Color(0xFF5b6a8a),
-          type: BottomNavigationBarType.fixed,
-          items: const [
-            BottomNavigationBarItem(
-              icon: Icon(Icons.home),
-              label: 'Home',
+        child: Stack(
+          alignment: Alignment.bottomCenter,
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(bottom: 8.0),
+              child: BottomNavigationBar(
+                currentIndex: _selectedIndex,
+                onTap: _onItemTapped,
+                backgroundColor: const Color.fromARGB(110, 21, 26, 46),
+                selectedItemColor: Colors.white,
+                unselectedItemColor: const Color(0xFF5b6a8a),
+                type: BottomNavigationBarType.fixed,
+                items: const [
+                  BottomNavigationBarItem(
+                    icon: Icon(Icons.home),
+                    label: 'Home',
+                  ),
+                  BottomNavigationBarItem(
+                    icon: Icon(Icons.insights),
+                    label: 'Agendar',
+                  ),
+                  BottomNavigationBarItem(
+                    icon: Icon(Icons.nights_stay),
+                    label: 'Alarme',
+                  ),
+                  BottomNavigationBarItem(
+                    icon: Icon(Icons.person),
+                    label: 'Perfil',
+                  ),
+                ],
+              ),
             ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.insights),
-              label: 'Agendar',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.nights_stay),
-              label: 'Alarme',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.person),
-              label: 'Perfil',
+            Positioned(
+              bottom: 70,
+              left: (_selectedIndex * (MediaQuery.of(context).size.width / 4)) + (MediaQuery.of(context).size.width / 8) - 25,
+              child: Container(
+                width: 50,
+                height: 4,
+                decoration: BoxDecoration(
+                  color: const Color(0xFF7A88A5),
+                  borderRadius: BorderRadius.circular(2),
+                ),
+              ),
             ),
           ],
         ),
