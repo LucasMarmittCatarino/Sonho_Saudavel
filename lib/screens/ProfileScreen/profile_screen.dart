@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import '../LoginScreens/auth_screen.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
@@ -13,39 +12,42 @@ class ProfileScreen extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
 
-            const SizedBox(
-              height: 200,
+            Container(
+              height: 250,
+              alignment: Alignment.topCenter,
               child: Column(
                 children: <Widget>[
 
-                  Text(
+                  Container(
+                    width: 100,
+                    height: 100,
+                    decoration: const BoxDecoration(
+                      color: Colors.white,
+                      shape: BoxShape.circle,
+                    ),
+                    child: ClipOval(
+                      child: Image.asset(
+                        'lib/assets/png/profile_man.png',
+                        fit: BoxFit.cover,
+                      ),
+                    )
+                  ),
+
+                  const SizedBox(height: 20,),
+
+                  const Text(
                     'Primeiro nome',
                     style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white),
                   ),
 
-                  Text(
+                  const Text(
                     'Sobrenome',
                     style: TextStyle(fontSize: 20, fontWeight: FontWeight.w400, color: Colors.white),
                   ),
 
-                  SizedBox(
+                  const SizedBox(
                     height: 10,
                   ),
-
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        '21y | ',
-                        style: TextStyle(fontSize: 14, fontWeight: FontWeight.w300, color: Colors.white),
-                      ),
-
-                      Text(
-                        'Male',
-                        style: TextStyle(fontSize: 14, fontWeight: FontWeight.w300, color: Colors.white),
-                      ),
-                    ],
-                  )
                 ],
               ),
             ),
@@ -55,21 +57,26 @@ class ProfileScreen extends StatelessWidget {
               height: 40,
               child: TextButton(
                 onPressed: () {
-                  //Tela de informações da conta
+                  // Ação do botão
                 },
                 style: TextButton.styleFrom(
                   backgroundColor: const Color(0xFF141B2E),
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
                 ),
-                child: const Row(
-                  mainAxisSize: MainAxisSize.min,
+                child: const Stack(
                   children: [
-                    Icon(Icons.person, color: Colors.white),
-                    SizedBox(width: 8),
-                    Text(
-                      'Sobre mim',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.w600,
+                    Align(
+                      alignment: Alignment.centerLeft,
+                      child: Icon(Icons.person, color: Colors.white),
+                    ),
+                    Align(
+                      alignment: Alignment.center,
+                      child: Text(
+                        'Sobre mim',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.w600,
+                        ),
                       ),
                     ),
                   ],
@@ -84,45 +91,29 @@ class ProfileScreen extends StatelessWidget {
               height: 40,
               child: TextButton(
                 onPressed: () {
-                  //Tela de 
+                  // Ação do botão
                 },
                 style: TextButton.styleFrom(
                   backgroundColor: const Color(0xFF141B2E),
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
                 ),
-                child: const Row(
-                  mainAxisSize: MainAxisSize.min,
+                child: const Stack(
                   children: [
-                    Icon(Icons.person, color: Colors.white),
-                    SizedBox(width: 8),
-                    Text(
-                      'Sobre mim',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.w600,
+                    Align(
+                      alignment: Alignment.centerLeft,
+                      child: Icon(Icons.settings, color: Colors.white),
+                    ),
+                    Align(
+                      alignment: Alignment.center,
+                      child: Text(
+                        'Configuração',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.w600,
+                        ),
                       ),
                     ),
                   ],
-                ),
-              ),
-            ),
-            
-
-            const SizedBox(height: 20),
-
-            GestureDetector(
-              onTap: () {
-                Navigator.push(
-                  context,
-                    MaterialPageRoute(
-                    builder: (context) => const AuthScreen(),
-                    ),
-                  );
-              },
-              child: const Text( 
-                'Logout ?',
-                style: TextStyle(
-                  fontWeight: FontWeight.w600,
-                  color: Color(0xFFBDFF4F),
                 ),
               ),
             ),

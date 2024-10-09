@@ -22,4 +22,7 @@ dev_dependencies:
   flutter_lints: ^2.0.0
 
 flutter:
+  assets:
+    - lib/assets/png/profile_man.png
+    - lib/assets/png/profile_woman.png
   uses-material-design: true
