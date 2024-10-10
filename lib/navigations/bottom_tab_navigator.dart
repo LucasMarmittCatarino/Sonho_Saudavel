@@ -77,7 +77,7 @@ class _BottomTabNavigatorState extends State<BottomTabNavigator> {
                 type: BottomNavigationBarType.shifting,
                 items: [
                   _buildBottomNavigationBarItem(Icons.home, 'Home'),
-                  _buildBottomNavigationBarItem(Icons.insights, 'Agendar'),
+                  _buildBottomNavigationBarItem(Icons.calendar_month, 'Agendar'),
                   _buildBottomNavigationBarItem(Icons.nights_stay, 'Alarme'),
                   _buildBottomNavigationBarItem(Icons.person, 'Perfil'),
                 ],
