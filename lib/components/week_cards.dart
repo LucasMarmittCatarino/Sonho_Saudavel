@@ -55,7 +55,7 @@ class _WeekCardsState extends State<WeekCards> {
                     ),
                     child: Center(
                       child: Text(
-                        DateFormat('dd').format(day),
+                        DateFormat('dd/MM').format(day),
                         style: const TextStyle(
                           color: Colors.white,
                           fontSize: 24,
