@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../LoginScreens/auth_screen.dart';
 
 class ConfigurationScreen extends StatelessWidget {
   const ConfigurationScreen({super.key});
@@ -10,12 +11,21 @@ class ConfigurationScreen extends StatelessWidget {
         backgroundColor: Colors.transparent,
       ),
       backgroundColor: const Color(0xFF080E1C),
-      body: const Center(
+      body: Center(
         child: Column(
           children: [
 
-            Text('Configurações', style: TextStyle(color: Colors.white),),
-
+            TextButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const AuthScreen(),
+                  ),
+                );
+              },
+              child: Text('Logout', style: TextStyle(color: Colors.white),),
+            )
 
           ],
         )
