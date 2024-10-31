@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
-import 'sign_up_details_screen.dart';
+import 'login_screen.dart';
 
-class SignUpScreen extends StatefulWidget {
-  const SignUpScreen({super.key});
+class SignUpDetailsScreen extends StatefulWidget {
+  const SignUpDetailsScreen({super.key});
 
   @override
-  _SignUpScreenState createState() => _SignUpScreenState();
+  _SignUpDetailsScreenState createState() => _SignUpDetailsScreenState();
 }
 
-class _SignUpScreenState extends State<SignUpScreen> {
-  final TextEditingController _usernameController = TextEditingController();
-  final TextEditingController _emailController = TextEditingController();
-  final TextEditingController _passwordController = TextEditingController();
-  final TextEditingController _confirmPasswordController = TextEditingController();
+class _SignUpDetailsScreenState extends State<SignUpDetailsScreen> {
+  final TextEditingController _ageController = TextEditingController();
+  final TextEditingController _weightController = TextEditingController();
+  final TextEditingController _heightController = TextEditingController();
+  String _selectedGender = 'Masculino';
 
   @override
   Widget build(BuildContext context) {
@@ -21,81 +21,83 @@ class _SignUpScreenState extends State<SignUpScreen> {
       body: Center(
         child: Padding(
           padding: const EdgeInsets.all(16.0),
-
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-
               const Text(
-                  'Cadastro',
-                  style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold, color: Color(0xFF393839)),
+                'Cadastro',
+                style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold, color: Color(0xFF393839)),
               ),
-
               const SizedBox(height: 55),
 
               SizedBox(
                 width: 300,
                 child: TextField(
-                  controller: _usernameController,
-                  keyboardType: TextInputType.name,
+                  controller: _ageController,
+                  keyboardType: TextInputType.number,
                   decoration: const InputDecoration(
-                    labelText: 'Nome',
+                    labelText: 'Idade',
+                    labelStyle: TextStyle(color: Color.fromARGB(143, 57, 56, 57)),
+                    border: OutlineInputBorder(),
+                    prefixIcon: Icon(Icons.cake, color: Color(0xFF393839)),
+                  ),
+                ),
+              ),
+              const SizedBox(height: 26),
+
+              SizedBox(
+                width: 300,
+                child: DropdownButtonFormField<String>(
+                  value: _selectedGender,
+                  items: ['Masculino', 'Feminino', 'Outro']
+                      .map((gender) => DropdownMenuItem(
+                            value: gender,
+                            child: Text(gender),
+                          ))
+                      .toList(),
+                  onChanged: (value) {
+                    setState(() {
+                      _selectedGender = value!;
+                    });
+                  },
+                  decoration: const InputDecoration(
+                    labelText: 'Sexo',
                     labelStyle: TextStyle(color: Color.fromARGB(143, 57, 56, 57)),
                     border: OutlineInputBorder(),
                     prefixIcon: Icon(Icons.person, color: Color(0xFF393839)),
                   ),
                 ),
               ),
-
               const SizedBox(height: 26),
 
               SizedBox(
                 width: 300,
                 child: TextField(
-                  controller: _emailController,
-                  keyboardType: TextInputType.emailAddress,
+                  controller: _weightController,
+                  keyboardType: TextInputType.numberWithOptions(decimal: true),
                   decoration: const InputDecoration(
-                    labelText: 'Email',
+                    labelText: 'Peso (kg)',
                     labelStyle: TextStyle(color: Color.fromARGB(143, 57, 56, 57)),
                     border: OutlineInputBorder(),
-                    prefixIcon: Icon(Icons.email, color: Color(0xFF393839)),
+                    prefixIcon: Icon(Icons.fitness_center, color: Color(0xFF393839)),
                   ),
                 ),
               ),
-              
-
               const SizedBox(height: 26),
 
               SizedBox(
                 width: 300,
                 child: TextField(
-                  controller: _passwordController,
-                  obscureText: true,
+                  controller: _heightController,
+                  keyboardType: TextInputType.numberWithOptions(decimal: true),
                   decoration: const InputDecoration(
-                    labelText: 'Senha',
+                    labelText: 'Altura (cm)',
                     labelStyle: TextStyle(color: Color.fromARGB(143, 57, 56, 57)),
                     border: OutlineInputBorder(),
-                    prefixIcon: Icon(Icons.lock, color: Color(0xFF393839)),
+                    prefixIcon: Icon(Icons.height, color: Color(0xFF393839)),
                   ),
                 ),
               ),
-
-              const SizedBox(height: 26),
-
-              SizedBox(
-                width: 300,
-                child: TextField(
-                  controller: _confirmPasswordController,
-                  obscureText: true,
-                  decoration: const InputDecoration(
-                    labelText: 'Confirmar Senha',
-                    labelStyle: TextStyle(color: Color.fromARGB(143, 57, 56, 57)),
-                    border: OutlineInputBorder(),
-                    prefixIcon: Icon(Icons.lock, color: Color(0xFF393839)),
-                  ),
-                ),
-              ),
-
               const SizedBox(height: 26),
 
               Container(
@@ -108,7 +110,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => const SignUpDetailsScreen(),
+                          builder: (context) => const LoginScreen(),
                         ),
                       );
                     },
@@ -121,7 +123,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     ),
                   ),
                 ),
-              )
+              ),
             ],
           ),
         ),
@@ -131,8 +133,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
   @override
   void dispose() {
-    _emailController.dispose();
-    _passwordController.dispose();
+    _ageController.dispose();
+    _weightController.dispose();
+    _heightController.dispose();
     super.dispose();
   }
 }
