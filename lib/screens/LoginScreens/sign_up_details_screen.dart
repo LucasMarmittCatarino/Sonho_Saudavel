@@ -8,11 +8,11 @@ class SignUpDetailsScreen extends StatefulWidget {
   final String password;
 
   const SignUpDetailsScreen({
-    Key? key,
+    super.key,
     required this.name,
     required this.email,
     required this.password,
-  }) : super(key: key);
+  });
 
   @override
   _SignUpDetailsScreenState createState() => _SignUpDetailsScreenState();
