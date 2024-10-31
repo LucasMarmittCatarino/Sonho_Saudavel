@@ -6,11 +6,11 @@ class HomeScreenCustomCard extends StatelessWidget {
   final IconData icon;
 
   const HomeScreenCustomCard({
-    Key? key,
+    super.key,
     required this.label,
     required this.time,
     required this.icon,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
