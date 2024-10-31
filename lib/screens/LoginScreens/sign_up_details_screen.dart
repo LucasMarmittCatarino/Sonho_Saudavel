@@ -1,8 +1,18 @@
 import 'package:flutter/material.dart';
 import 'login_screen.dart';
+import '../../database/auth_service.dart';
 
 class SignUpDetailsScreen extends StatefulWidget {
-  const SignUpDetailsScreen({super.key});
+  final String name;
+  final String email;
+  final String password;
+
+  const SignUpDetailsScreen({
+    Key? key,
+    required this.name,
+    required this.email,
+    required this.password,
+  }) : super(key: key);
 
   @override
   _SignUpDetailsScreenState createState() => _SignUpDetailsScreenState();
@@ -106,13 +116,40 @@ class _SignUpDetailsScreenState extends State<SignUpDetailsScreen> {
                   width: 300,
                   height: 45,
                   child: ElevatedButton(
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const LoginScreen(),
-                        ),
+                    onPressed: () async {
+                      final age = int.tryParse(_ageController.text);
+                      final weight = double.tryParse(_weightController.text);
+                      final height = double.tryParse(_heightController.text);
+
+                      if (age == null || weight == null || height == null) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(content: Text('Por favor, preencha todos os campos corretamente.')),
+                        );
+                        return;
+                      }
+
+                      final result = await AuthService().registerUser(
+                        widget.name,
+                        widget.email,
+                        widget.password,
+                        age,
+                        _selectedGender,
+                        weight,
+                        height,
                       );
+
+                      if (result) {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const LoginScreen(),
+                          ),
+                        );
+                      } else {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(content: Text('Erro ao registrar o usuário.')),
+                        );
+                      }
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: const Color(0xFF504EB4),
