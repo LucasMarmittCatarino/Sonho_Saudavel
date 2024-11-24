@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import '../LoginScreens/auth_screen.dart';
 import '../LoginScreens/recover_password_screen.dart';
 import '../../navigations/bottom_tab_navigator.dart';
-import '../../database/auth_service.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -14,7 +13,6 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-  final AuthService _authService = AuthService();
 
   @override
   Widget build(BuildContext context) {
@@ -94,24 +92,13 @@ class _LoginScreenState extends State<LoginScreen> {
                   width: 300,
                   height: 45,
                   child: ElevatedButton(
-                    onPressed: () async {
-                      final isLoggedIn = await _authService.loginUser(
-                        _emailController.text,
-                        _passwordController.text,
-                      );
-
-                      if (isLoggedIn) {
-                        print('Login bem-sucedido.');
-
+                    onPressed: () {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
                             builder: (context) => const BottomTabNavigator(),
                           ),
                         );
-                      } else {
-                        print('Email ou senha incorretos.');
-                      }
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: const Color(0xFF504EB4),

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'login_screen.dart';
-import '../../database/auth_service.dart';
 
 class SignUpDetailsScreen extends StatefulWidget {
   final String name;
@@ -127,29 +126,12 @@ class _SignUpDetailsScreenState extends State<SignUpDetailsScreen> {
                         );
                         return;
                       }
-
-                      final result = await AuthService().registerUser(
-                        widget.name,
-                        widget.email,
-                        widget.password,
-                        age,
-                        _selectedGender,
-                        weight,
-                        height,
-                      );
-
-                      if (result) {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
                             builder: (context) => const LoginScreen(),
                           ),
                         );
-                      } else {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(content: Text('Erro ao registrar o usuário.')),
-                        );
-                      }
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: const Color(0xFF504EB4),
