@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../LoginScreens/auth_screen.dart';
 import '../LoginScreens/recover_password_screen.dart';
 import '../../navigations/bottom_tab_navigator.dart';
+import '../../services/firestore_service.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -13,6 +14,42 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+  final FirestoreService _firestoreService = FirestoreService(); // Serviço para acessar o banco de dados
+
+  Future<void> _login() async {
+    final email = _emailController.text;
+    final password = _passwordController.text;
+
+    if (email.isEmpty || password.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Por favor, preencha todos os campos')),
+      );
+      return;
+    }
+
+    try {
+      final user = await _firestoreService.getUserByEmail(email);
+      if (user != null && user['password'] == password) {
+        // Login bem-sucedido
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (context) => const BottomTabNavigator(),
+          ),
+        );
+      } else {
+        // Email ou senha incorretos
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Email ou senha incorretos')),
+        );
+      }
+    } catch (e) {
+      // Em caso de erro no processo de login
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Erro ao tentar fazer login')),
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -92,14 +129,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   width: 300,
                   height: 45,
                   child: ElevatedButton(
-                    onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const BottomTabNavigator(),
-                          ),
-                        );
-                    },
+                    onPressed: _login, // Chama a função de login
                     style: ElevatedButton.styleFrom(
                       backgroundColor: const Color(0xFF504EB4),
                     ),

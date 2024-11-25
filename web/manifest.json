@@ -1,6 +1,6 @@
 {
-    "name": "sonho_saudavel",
-    "short_name": "sonho_saudavel",
+    "name": "sonho_saudavel_teste",
+    "short_name": "sonho_saudavel_teste",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",
