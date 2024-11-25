@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../services/firestore_service.dart';
+import '../../utils/sleep_utils.dart';
 import 'login_screen.dart';
 import 'package:flutter/services.dart';
 
@@ -36,7 +37,7 @@ class _SignUpDetailsScreenState extends State<SignUpDetailsScreen> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              const Text(
+                            const Text(
                 'Cadastro',
                 style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold, color: Color(0xFF393839)),
               ),
@@ -137,6 +138,8 @@ class _SignUpDetailsScreenState extends State<SignUpDetailsScreen> {
                       return;
                     }
 
+                    final sleepTimeAmount = SleepUtils.calculateIdealSleepTime(age);
+
                     // Salva os dados no Firestore
                     try {
                       await _firestoreService.addUser(
@@ -147,6 +150,9 @@ class _SignUpDetailsScreenState extends State<SignUpDetailsScreen> {
                         gender: _selectedGender,
                         weight: weight,
                         height: height,
+                        sleepSchedule: {
+                          'sleepTimeAmount': sleepTimeAmount,
+                        },
                       );
 
                       // Navega para a tela de login após salvar
@@ -185,7 +191,6 @@ class _SignUpDetailsScreenState extends State<SignUpDetailsScreen> {
   }
 }
 
-// Custom Input Formatter para o Peso (adiciona ponto após os dois primeiros dígitos)
 class _WeightInputFormatter extends TextInputFormatter {
   @override
   TextEditingValue formatEditUpdate(TextEditingValue oldValue, TextEditingValue newValue) {

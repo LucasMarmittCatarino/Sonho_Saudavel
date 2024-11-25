@@ -12,6 +12,7 @@ class FirestoreService {
     required String gender,
     required double weight,
     required int height,
+    required Map<String, dynamic> sleepSchedule,
   }) async {
     try {
       await _firestore.collection('user').add({
@@ -22,6 +23,7 @@ class FirestoreService {
         'sex': gender,
         'weight': weight.toString(),
         'height': height.toString(),
+        'sleepSchedule': sleepSchedule,
       });
       print('Usuário cadastrado com sucesso no Firestore!');
     } catch (e) {
