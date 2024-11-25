@@ -3,9 +3,12 @@ import '../screens/HomeScreen/home_screen.dart';
 import '../screens/AlarmScreen/alarm_screen.dart';
 import '../screens/ProfileScreen/profile_screen.dart';
 import '../screens/ScheduleScreen/schedule_screen.dart';
+import '../services/firestore_service.dart';
 
 class BottomTabNavigator extends StatefulWidget {
-  const BottomTabNavigator({super.key});
+  final String userEmail;
+
+  const BottomTabNavigator({super.key, required this.userEmail});
 
   @override
   _BottomTabNavigatorState createState() => _BottomTabNavigatorState();
@@ -13,13 +16,44 @@ class BottomTabNavigator extends StatefulWidget {
 
 class _BottomTabNavigatorState extends State<BottomTabNavigator> {
   int _selectedIndex = 0;
+  String _userName = 'Usuário'; // Valor inicial padrão
+  final FirestoreService _firestoreService = FirestoreService(); // Instância do serviço
 
-  final List<Widget> _screens = const [
-    HomeScreen(),
-    ScheduleScreen(),
-    AlarmScreen(),
-    ProfileScreen(),
-  ];
+  late List<Widget> _screens;
+  bool _isLoading = true; // Indica se o carregamento está em andamento
+
+  @override
+  void initState() {
+    super.initState();
+    _initializeUserName(); // Inicializa o nome do usuário
+  }
+
+  Future<void> _initializeUserName() async {
+    try {
+      final userName = await _firestoreService.fetchUserNameByEmail(widget.userEmail);
+      setState(() {
+        _userName = userName;
+        _initializeScreens(); // Inicializa as telas após obter o nome
+        _isLoading = false;  // Carregamento concluído
+      });
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Erro ao buscar o nome do usuário')),
+      );
+      setState(() {
+        _isLoading = false; // Carregamento falhou, mas precisamos exibir algo
+      });
+    }
+  }
+
+  void _initializeScreens() {
+    _screens = [
+      HomeScreen(userName: _userName),
+      const ScheduleScreen(),
+      const AlarmScreen(),
+      ProfileScreen(userEmail: widget.userEmail),
+    ];
+  }
 
   void _onItemTapped(int index) {
     setState(() {
@@ -28,9 +62,9 @@ class _BottomTabNavigatorState extends State<BottomTabNavigator> {
   }
 
   double _getIndicatorPosition() {
-    return (_selectedIndex * (MediaQuery.of(context).size.width / 4)) +
-        (MediaQuery.of(context).size.width / 8) -
-        (7 + _selectedIndex * 13);
+  return (_selectedIndex * (MediaQuery.of(context).size.width / 4)) +
+      (MediaQuery.of(context).size.width / 8) -
+      (7 + _selectedIndex * 13);
   }
 
   BottomNavigationBarItem _buildBottomNavigationBarItem(IconData icon, String label) {
@@ -48,10 +82,12 @@ class _BottomTabNavigatorState extends State<BottomTabNavigator> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xFF080E1C),
-      body: IndexedStack(
-        index: _selectedIndex,
-        children: _screens,
-      ),
+      body: _isLoading
+          ? const Center(child: CircularProgressIndicator())
+          : IndexedStack(
+              index: _selectedIndex,
+              children: _screens,
+            ),
       bottomNavigationBar: Theme(
         data: ThemeData(
           splashColor: Colors.transparent,
@@ -83,7 +119,7 @@ class _BottomTabNavigatorState extends State<BottomTabNavigator> {
                 ],
                 showUnselectedLabels: false,
               ),
-              AnimatedPositioned(
+                            AnimatedPositioned(
                 duration: const Duration(milliseconds: 70),
                 bottom: 72,
                 left: _getIndicatorPosition(),

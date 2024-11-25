@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import '../../components/home_screen_custom_card.dart';
 
 class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key});
+  final String userName;
+
+  const HomeScreen({super.key, required this.userName});
 
   @override
   Widget build(BuildContext context) {
@@ -14,13 +16,14 @@ class HomeScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
 
-            const Text(
-              'Bom dia, nome!',
-              style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold, color: Colors.white),
+            // Atualiza a mensagem de bom dia
+            Text(
+              'Bom dia, $userName!',
+              style: const TextStyle(fontSize: 25, fontWeight: FontWeight.bold, color: Colors.white),
             ),
 
             const SizedBox(height: 8),
-            
+
             const Text(
               'Você dormiu bem ontem à noite.',
               style: TextStyle(fontSize: 16, fontWeight: FontWeight.w200, color: Color(0xFFBEBFC5)),
@@ -66,7 +69,7 @@ class HomeScreen extends StatelessWidget {
                   'lib/assets/png/moon.png',
                   fit: BoxFit.cover,
                 ),
-              )
+              ),
             ),
 
             const SizedBox(height: 30),

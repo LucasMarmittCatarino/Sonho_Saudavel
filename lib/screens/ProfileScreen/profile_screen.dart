@@ -3,7 +3,9 @@ import '../ProfileDetailsScreen/profile_details_screen.dart';
 import '../ConfigurationScreen/configuration_screen.dart';
 
 class ProfileScreen extends StatelessWidget {
-  const ProfileScreen({super.key});
+  final String userEmail;
+
+  const ProfileScreen({super.key, required this.userEmail});
 
   @override
   Widget build(BuildContext context) {
@@ -13,13 +15,11 @@ class ProfileScreen extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-
             Container(
               height: 250,
               alignment: Alignment.topCenter,
               child: Column(
                 children: <Widget>[
-
                   Container(
                     width: 100,
                     height: 100,
@@ -32,28 +32,29 @@ class ProfileScreen extends StatelessWidget {
                         'lib/assets/png/profile_man.png',
                         fit: BoxFit.cover,
                       ),
-                    )
+                    ),
                   ),
-
-                  const SizedBox(height: 20,),
-
+                  const SizedBox(height: 20),
                   const Text(
-                    'Primeiro nome',
-                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white),
+                    'Primeiro Nome',
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                    ),
                   ),
-
                   const Text(
                     'Sobrenome',
-                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.w400, color: Colors.white),
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.w400,
+                      color: Colors.white,
+                    ),
                   ),
-
-                  const SizedBox(
-                    height: 10,
-                  ),
+                  const SizedBox(height: 10),
                 ],
               ),
             ),
-
             SizedBox(
               width: 230,
               height: 40,
@@ -61,8 +62,9 @@ class ProfileScreen extends StatelessWidget {
                 onPressed: () {
                   Navigator.push(
                     context,
-                      MaterialPageRoute(
-                      builder: (context) => const ProfileDetailsScreen(),
+                    MaterialPageRoute(
+                      builder: (context) =>
+                          ProfileDetailsScreen(userEmail: userEmail),
                     ),
                   );
                 },
@@ -90,9 +92,7 @@ class ProfileScreen extends StatelessWidget {
                 ),
               ),
             ),
-
             const SizedBox(height: 20),
-
             SizedBox(
               width: 230,
               height: 40,
@@ -100,7 +100,7 @@ class ProfileScreen extends StatelessWidget {
                 onPressed: () {
                   Navigator.push(
                     context,
-                      MaterialPageRoute(
+                    MaterialPageRoute(
                       builder: (context) => const ConfigurationScreen(),
                     ),
                   );

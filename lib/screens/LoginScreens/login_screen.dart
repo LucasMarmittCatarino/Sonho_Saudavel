@@ -34,7 +34,7 @@ class _LoginScreenState extends State<LoginScreen> {
         Navigator.pushReplacement(
           context,
           MaterialPageRoute(
-            builder: (context) => const BottomTabNavigator(),
+            builder: (context) => BottomTabNavigator(userEmail: email), // Passa o email
           ),
         );
       } else {

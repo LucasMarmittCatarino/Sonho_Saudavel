@@ -62,7 +62,7 @@ class _AlarmScreenState extends State<AlarmScreen> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Container(
-                    width: 100,
+                    width: 80,
                     height: 2,
                     color: Colors.white,
                   ),
@@ -84,7 +84,7 @@ class _AlarmScreenState extends State<AlarmScreen> {
                   const SizedBox(width: 20),
 
                   Container(
-                    width: 100,
+                    width: 80,
                     height: 2,
                     color: Colors.white,
                   ),

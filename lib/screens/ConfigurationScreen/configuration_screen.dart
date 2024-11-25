@@ -7,8 +7,16 @@ class ConfigurationScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
+            appBar: AppBar(
         backgroundColor: Colors.transparent,
+        title: const Text(
+          'Configurações',
+          style: TextStyle(color: Colors.white),
+        ),
+        centerTitle: true,
+        iconTheme: const IconThemeData(
+          color: Colors.white,
+        ),
       ),
       backgroundColor: const Color(0xFF080E1C),
       body: Center(
@@ -16,6 +24,9 @@ class ConfigurationScreen extends StatelessWidget {
           children: [
 
             TextButton(
+              style: TextButton.styleFrom(
+                backgroundColor: const Color(0xFF141B2E),
+              ),
               onPressed: () {
                 Navigator.push(
                   context,

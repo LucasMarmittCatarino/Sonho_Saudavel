@@ -49,4 +49,36 @@ class FirestoreService {
       rethrow;
     }
   }
+  
+    Future<void> updateUser(String email, Map<String, dynamic> data) async {
+    try {
+      final querySnapshot = await _firestore
+          .collection('user')
+          .where('email', isEqualTo: email)
+          .get();
+
+      if (querySnapshot.docs.isNotEmpty) {
+        final docId = querySnapshot.docs.first.id;
+        await _firestore.collection('user').doc(docId).update(data);
+        print('Usuário atualizado com sucesso!');
+      } else {
+        print('Usuário não encontrado para atualização.');
+      }
+    } catch (e) {
+      print('Erro ao atualizar os dados do Firestore: $e');
+      rethrow;
+    }
+  }
+
+  Future<String> fetchUserNameByEmail(String email) async {
+    try {
+      final user = await getUserByEmail(email);
+      if (user != null && user.containsKey('name')) {
+        return user['name'];
+      }
+      return 'Usuário';
+    } catch (e) {
+      throw Exception('Erro ao buscar o nome do usuário: $e');
+    }
+  }
 }
