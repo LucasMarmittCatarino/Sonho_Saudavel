@@ -51,7 +51,7 @@ class _BottomTabNavigatorState extends State<BottomTabNavigator> {
       HomeScreen(userName: _userName),
       const ScheduleScreen(),
       const AlarmScreen(),
-      ProfileScreen(userEmail: widget.userEmail),
+      ProfileScreen(userEmail: widget.userEmail, name: _userName),
     ];
   }
 

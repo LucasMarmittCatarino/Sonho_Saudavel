@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../components/home_screen_custom_card.dart';
+import '../../utils/string_utils.dart'; // Importe o arquivo utilitário
 
 class HomeScreen extends StatelessWidget {
   final String userName;
@@ -8,6 +9,9 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // Utilize a função splitName para obter o primeiro nome
+    final firstName = StringUtils.splitName(userName)['firstName']!;
+
     return Scaffold(
       backgroundColor: const Color(0xFF080E1C),
       body: Padding(
@@ -15,25 +19,36 @@ class HomeScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-
-            // Atualiza a mensagem de bom dia
+            // Atualiza a mensagem de bom dia com o primeiro nome
             Text(
-              'Bom dia, $userName!',
-              style: const TextStyle(fontSize: 25, fontWeight: FontWeight.bold, color: Colors.white),
+              'Bom dia, $firstName!',
+              style: const TextStyle(
+                fontSize: 25,
+                fontWeight: FontWeight.bold,
+                color: Colors.white,
+              ),
             ),
 
             const SizedBox(height: 8),
 
             const Text(
               'Você dormiu bem ontem à noite.',
-              style: TextStyle(fontSize: 16, fontWeight: FontWeight.w200, color: Color(0xFFBEBFC5)),
+              style: TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.w200,
+                color: Color(0xFFBEBFC5),
+              ),
             ),
 
             const SizedBox(height: 50),
 
             const Text(
               'Tempo ideal de sono:',
-              style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400, color: Colors.white),
+              style: TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.w400,
+                color: Colors.white,
+              ),
             ),
 
             RichText(
@@ -41,19 +56,35 @@ class HomeScreen extends StatelessWidget {
                 children: [
                   TextSpan(
                     text: '8',
-                    style: TextStyle(fontSize: 36, fontWeight: FontWeight.w600, color: Colors.white),
+                    style: TextStyle(
+                      fontSize: 36,
+                      fontWeight: FontWeight.w600,
+                      color: Colors.white,
+                    ),
                   ),
                   TextSpan(
                     text: 'h ',
-                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600, color: Colors.white),
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.w600,
+                      color: Colors.white,
+                    ),
                   ),
                   TextSpan(
                     text: '00',
-                    style: TextStyle(fontSize: 36, fontWeight: FontWeight.w600, color: Colors.white),
+                    style: TextStyle(
+                      fontSize: 36,
+                      fontWeight: FontWeight.w600,
+                      color: Colors.white,
+                    ),
                   ),
                   TextSpan(
                     text: 'm',
-                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600, color: Colors.white),
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.w600,
+                      color: Colors.white,
+                    ),
                   ),
                 ],
               ),
@@ -76,7 +107,11 @@ class HomeScreen extends StatelessWidget {
 
             const Text(
               'Análise do sono:',
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white),
+              style: TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+                color: Colors.white,
+              ),
             ),
 
             const SizedBox(height: 30),

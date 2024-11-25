@@ -1,14 +1,24 @@
 import 'package:flutter/material.dart';
 import '../ProfileDetailsScreen/profile_details_screen.dart';
 import '../ConfigurationScreen/configuration_screen.dart';
+import '../../utils/string_utils.dart';
 
 class ProfileScreen extends StatelessWidget {
   final String userEmail;
+  final String name;
 
-  const ProfileScreen({super.key, required this.userEmail});
+  const ProfileScreen({
+    super.key,
+    required this.name,
+    required this.userEmail,
+  });
 
   @override
   Widget build(BuildContext context) {
+    final nameParts = StringUtils.splitName(name);
+    final firstName = nameParts['firstName']!;
+    final lastName = nameParts['lastName']!;
+
     return Scaffold(
       backgroundColor: const Color(0xFF080E1C),
       body: Center(
@@ -35,17 +45,17 @@ class ProfileScreen extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(height: 20),
-                  const Text(
-                    'Primeiro Nome',
-                    style: TextStyle(
+                  Text(
+                    firstName,
+                    style: const TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
                       color: Colors.white,
                     ),
                   ),
-                  const Text(
-                    'Sobrenome',
-                    style: TextStyle(
+                  Text(
+                    lastName,
+                    style: const TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.w400,
                       color: Colors.white,
