@@ -2,20 +2,21 @@ import 'package:flutter/material.dart';
 import '../ProfileDetailsScreen/profile_details_screen.dart';
 import '../ConfigurationScreen/configuration_screen.dart';
 import '../../utils/string_utils.dart';
+import '../../store/user_store.dart';
+import 'package:provider/provider.dart';
 
 class ProfileScreen extends StatelessWidget {
-  final String userEmail;
-  final String name;
-
-  const ProfileScreen({
-    super.key,
-    required this.name,
-    required this.userEmail,
-  });
+  const ProfileScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final nameParts = StringUtils.splitName(name);
+    // Obtém o estado do usuário a partir da store
+    final userStore = context.watch<UserStore>();
+    final userName = userStore.userName;
+    final userEmail = userStore.userEmail;
+
+    // Divide o nome em partes
+    final nameParts = StringUtils.splitName(userName!);
     final firstName = nameParts['firstName']!;
     final lastName = nameParts['lastName']!;
 
@@ -74,7 +75,7 @@ class ProfileScreen extends StatelessWidget {
                     context,
                     MaterialPageRoute(
                       builder: (context) =>
-                          ProfileDetailsScreen(userEmail: userEmail),
+                          ProfileDetailsScreen(userEmail: userEmail!),
                     ),
                   );
                 },

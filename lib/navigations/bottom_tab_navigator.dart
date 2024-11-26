@@ -3,12 +3,9 @@ import '../screens/HomeScreen/home_screen.dart';
 import '../screens/AlarmScreen/alarm_screen.dart';
 import '../screens/ProfileScreen/profile_screen.dart';
 import '../screens/ScheduleScreen/schedule_screen.dart';
-import '../services/firestore_service.dart';
 
 class BottomTabNavigator extends StatefulWidget {
-  final String userEmail;
-
-  const BottomTabNavigator({super.key, required this.userEmail});
+  const BottomTabNavigator({super.key});
 
   @override
   _BottomTabNavigatorState createState() => _BottomTabNavigatorState();
@@ -16,43 +13,27 @@ class BottomTabNavigator extends StatefulWidget {
 
 class _BottomTabNavigatorState extends State<BottomTabNavigator> {
   int _selectedIndex = 0;
-  String _userName = 'Usuário'; // Valor inicial padrão
-  final FirestoreService _firestoreService = FirestoreService(); // Instância do serviço
+  bool _isLoading = true; // Indica se o carregamento está em andamento
 
   late List<Widget> _screens;
-  bool _isLoading = true; // Indica se o carregamento está em andamento
 
   @override
   void initState() {
     super.initState();
-    _initializeUserName(); // Inicializa o nome do usuário
-  }
-
-  Future<void> _initializeUserName() async {
-    try {
-      final userName = await _firestoreService.fetchUserNameByEmail(widget.userEmail);
-      setState(() {
-        _userName = userName;
-        _initializeScreens(); // Inicializa as telas após obter o nome
-        _isLoading = false;  // Carregamento concluído
-      });
-    } catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Erro ao buscar o nome do usuário')),
-      );
-      setState(() {
-        _isLoading = false; // Carregamento falhou, mas precisamos exibir algo
-      });
-    }
+    _initializeScreens();
   }
 
   void _initializeScreens() {
+
     _screens = [
-      HomeScreen(userName: _userName),
+      HomeScreen(),
       const ScheduleScreen(),
       const AlarmScreen(),
-      ProfileScreen(userEmail: widget.userEmail, name: _userName),
+      ProfileScreen(),
     ];
+    setState(() {
+      _isLoading = false; // Carregamento concluído
+    });
   }
 
   void _onItemTapped(int index) {
@@ -62,9 +43,9 @@ class _BottomTabNavigatorState extends State<BottomTabNavigator> {
   }
 
   double _getIndicatorPosition() {
-  return (_selectedIndex * (MediaQuery.of(context).size.width / 4)) +
-      (MediaQuery.of(context).size.width / 8) -
-      (7 + _selectedIndex * 13);
+    return (_selectedIndex * (MediaQuery.of(context).size.width / 4)) +
+        (MediaQuery.of(context).size.width / 8) -
+        (7 + _selectedIndex * 13);
   }
 
   BottomNavigationBarItem _buildBottomNavigationBarItem(IconData icon, String label) {
@@ -119,7 +100,7 @@ class _BottomTabNavigatorState extends State<BottomTabNavigator> {
                 ],
                 showUnselectedLabels: false,
               ),
-                            AnimatedPositioned(
+              AnimatedPositioned(
                 duration: const Duration(milliseconds: 70),
                 bottom: 72,
                 left: _getIndicatorPosition(),

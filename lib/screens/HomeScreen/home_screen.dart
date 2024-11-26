@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
 import '../../components/home_screen_custom_card.dart';
-import '../../utils/string_utils.dart'; // Importe o arquivo utilitário
+import '../../utils/string_utils.dart';
+import 'package:provider/provider.dart';
+import '../../store/user_store.dart';
 
 class HomeScreen extends StatelessWidget {
-  final String userName;
 
-  const HomeScreen({super.key, required this.userName});
+  const HomeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    // Utilize a função splitName para obter o primeiro nome
-    final firstName = StringUtils.splitName(userName)['firstName']!;
+    final userStore = context.watch<UserStore>();
+    final firstName = StringUtils.splitName(userStore.userName!)['firstName']!;
 
     return Scaffold(
       backgroundColor: const Color(0xFF080E1C),

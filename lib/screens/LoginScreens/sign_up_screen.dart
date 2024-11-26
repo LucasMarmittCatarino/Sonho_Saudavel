@@ -136,7 +136,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       backgroundColor: const Color(0xFF504EB4),
                     ),
                     child: const Text(
-                      'Finalizar cadastro',
+                      'Continuar',
                       style: TextStyle(color: Colors.white, fontWeight: FontWeight.w600),
                     ),
                   ),

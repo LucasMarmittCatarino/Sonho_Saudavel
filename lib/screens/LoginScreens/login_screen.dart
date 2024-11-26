@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import '../LoginScreens/auth_screen.dart';
 import '../LoginScreens/recover_password_screen.dart';
 import '../../navigations/bottom_tab_navigator.dart';
 import '../../services/firestore_service.dart';
+import '../../store/user_store.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -14,7 +16,7 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-  final FirestoreService _firestoreService = FirestoreService(); // Serviço para acessar o banco de dados
+  final FirestoreService _firestoreService = FirestoreService();
 
   Future<void> _login() async {
     final email = _emailController.text;
@@ -29,22 +31,34 @@ class _LoginScreenState extends State<LoginScreen> {
 
     try {
       final user = await _firestoreService.getUserByEmail(email);
+
       if (user != null && user['password'] == password) {
-        // Login bem-sucedido
+        final userStore = Provider.of<UserStore>(context, listen: false);
+
+        // Salva os dados no estado global usando setUser
+        userStore.setUser(
+          name: user['name'],
+          email: user['email'],
+          password: user['password'],
+          age: user['age'],
+          gender: user['sex'], // Se for 'sex' no Firestore, mantenha assim
+          weight: double.parse(user['weight']),
+          height: int.parse(user['height']),
+          sleepSchedule: user['sleepSchedule'],
+        );
+
         Navigator.pushReplacement(
           context,
           MaterialPageRoute(
-            builder: (context) => BottomTabNavigator(userEmail: email), // Passa o email
+            builder: (context) => const BottomTabNavigator(),
           ),
         );
       } else {
-        // Email ou senha incorretos
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(content: Text('Email ou senha incorretos')),
         );
       }
     } catch (e) {
-      // Em caso de erro no processo de login
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('Erro ao tentar fazer login')),
       );

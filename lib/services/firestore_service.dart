@@ -71,16 +71,4 @@ class FirestoreService {
       rethrow;
     }
   }
-
-  Future<String> fetchUserNameByEmail(String email) async {
-    try {
-      final user = await getUserByEmail(email);
-      if (user != null && user.containsKey('name')) {
-        return user['name'];
-      }
-      return 'Usuário';
-    } catch (e) {
-      throw Exception('Erro ao buscar o nome do usuário: $e');
-    }
-  }
 }
