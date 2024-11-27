@@ -8,10 +8,10 @@ class BottomTabNavigator extends StatefulWidget {
   const BottomTabNavigator({super.key});
 
   @override
-  _BottomTabNavigatorState createState() => _BottomTabNavigatorState();
+  BottomTabNavigatorState createState() => BottomTabNavigatorState();
 }
 
-class _BottomTabNavigatorState extends State<BottomTabNavigator> {
+class BottomTabNavigatorState extends State<BottomTabNavigator> {
   int _selectedIndex = 0;
   bool _isLoading = true; // Indica se o carregamento está em andamento
 
@@ -36,7 +36,7 @@ class _BottomTabNavigatorState extends State<BottomTabNavigator> {
     });
   }
 
-  void _onItemTapped(int index) {
+  void onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
     });
@@ -88,7 +88,7 @@ class _BottomTabNavigatorState extends State<BottomTabNavigator> {
             children: [
               BottomNavigationBar(
                 currentIndex: _selectedIndex,
-                onTap: _onItemTapped,
+                onTap: onItemTapped,
                 selectedItemColor: Colors.white,
                 unselectedItemColor: const Color(0xFF5b6a8a),
                 type: BottomNavigationBarType.shifting,
