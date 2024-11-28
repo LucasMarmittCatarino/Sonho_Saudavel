@@ -13,6 +13,7 @@ class HomeScreen extends StatelessWidget {
     final userStore = context.watch<UserStore>();
     final firstName = StringUtils.splitName(userStore.userName!)['firstName']!;
     final wakeUpTime = userStore.sleepSchedule?['wakeUpTime'];
+    final sleepTimeAmount = userStore.sleepSchedule?['sleepTimeAmount'];
 
     return Scaffold(
       backgroundColor: const Color(0xFF080E1C),
@@ -33,7 +34,7 @@ class HomeScreen extends StatelessWidget {
             const SizedBox(height: 8),
 
             wakeUpTime != null
-                ? const HomeAfterWakeTimeSet()
+                ? HomeAfterWakeTimeSet(wakeUpTime: wakeUpTime, sleepTimeAmount: sleepTimeAmount)
                 : const HomeBeforeWakeTimeSet(),
           ],
         ),

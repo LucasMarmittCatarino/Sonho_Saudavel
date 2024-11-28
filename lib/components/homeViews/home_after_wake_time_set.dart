@@ -1,11 +1,22 @@
 import 'package:flutter/material.dart';
 import '../home_screen_custom_card.dart';
+import '../../utils/calculate_bed_time.dart';
 
 class HomeAfterWakeTimeSet extends StatelessWidget {
-  const HomeAfterWakeTimeSet({super.key});
+  final String wakeUpTime;
+  final int sleepTimeAmount;
+
+  const HomeAfterWakeTimeSet({
+    super.key,
+    required this.wakeUpTime,
+    required this.sleepTimeAmount,
+  });
 
   @override
   Widget build(BuildContext context) {
+
+    final bedTime = calculateBedTime(wakeUpTime, sleepTimeAmount);
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -100,17 +111,17 @@ class HomeAfterWakeTimeSet extends StatelessWidget {
         const SizedBox(height: 30),
 
         // Cards com informações de sono
-        const Row(
+        Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             HomeScreenCustomCard(
               label: 'Deitar:',
-              time: '11:00 PM',
+              time: bedTime,
               icon: Icons.hotel,
             ),
             HomeScreenCustomCard(
               label: 'Acordar:',
-              time: '7:00 AM',
+              time: wakeUpTime,
               icon: Icons.alarm,
             ),
           ],
