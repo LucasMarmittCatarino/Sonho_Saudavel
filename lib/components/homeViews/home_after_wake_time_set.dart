@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import '../home_screen_custom_card.dart';
 import '../../utils/calculate_bed_time.dart';
+import '../../components/home_screen_after_custom_card.dart';
 
-class HomeAfterWakeTimeSet extends StatelessWidget {
+class HomeAfterWakeTimeSet extends StatefulWidget {
   final String wakeUpTime;
   final int sleepTimeAmount;
 
@@ -13,19 +14,24 @@ class HomeAfterWakeTimeSet extends StatelessWidget {
   });
 
   @override
-  Widget build(BuildContext context) {
+  _HomeAfterWakeTimeSetState createState() => _HomeAfterWakeTimeSetState();
+}
 
-    final bedTime = calculateBedTime(wakeUpTime, sleepTimeAmount);
+class _HomeAfterWakeTimeSetState extends State<HomeAfterWakeTimeSet> {
+  bool _isSwitchOn = false;
+
+  @override
+  Widget build(BuildContext context) {
+    final bedTime = calculateBedTime(widget.wakeUpTime, widget.sleepTimeAmount);
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-
         const SizedBox(height: 20),
 
         Text(
-          'Com base nas suas informações, seu tempo ideal de sono é de $sleepTimeAmount horas.',
-          style: TextStyle(
+          'Com base nas suas informações, seu tempo ideal de sono é de ${widget.sleepTimeAmount} horas.',
+          style: const TextStyle(
             fontSize: 16,
             fontWeight: FontWeight.w400,
             color: Colors.white,
@@ -57,12 +63,16 @@ class HomeAfterWakeTimeSet extends StatelessWidget {
             ),
             HomeScreenCustomCard(
               label: 'Acordar:',
-              time: wakeUpTime,
+              time: widget.wakeUpTime,
               icon: Icons.alarm,
             ),
           ],
         ),
 
+        const SizedBox(height: 30),
+
+        // Switch com explicação
+        HomeScreenAfterCustomCard(label: 'Ativar Alarme Sugerido?')
       ],
     );
   }

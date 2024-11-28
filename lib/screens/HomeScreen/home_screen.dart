@@ -49,8 +49,9 @@ class HomeScreen extends StatelessWidget {
 
             // Exibe a tela com base no wakeUpTime
             wakeUpTime != null
-                ? HomeAfterWakeTimeSet(wakeUpTime: wakeUpTime, sleepTimeAmount: sleepTimeAmount)
-                : const HomeBeforeWakeTimeSet(),
+              ? HomeAfterWakeTimeSet(wakeUpTime: wakeUpTime, sleepTimeAmount: sleepTimeAmount)
+              : const HomeBeforeWakeTimeSet(),
+
           ],
         ),
       ),
