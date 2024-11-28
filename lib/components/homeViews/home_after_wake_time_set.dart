@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import '../home_screen_custom_card.dart';
 import '../../utils/calculate_bed_time.dart';
 import '../../components/home_screen_after_custom_card.dart';
+import '../../components/home_screen_custom_card.dart';
 
 class HomeAfterWakeTimeSet extends StatefulWidget {
   final String wakeUpTime;
@@ -18,7 +18,6 @@ class HomeAfterWakeTimeSet extends StatefulWidget {
 }
 
 class _HomeAfterWakeTimeSetState extends State<HomeAfterWakeTimeSet> {
-  bool _isSwitchOn = false;
 
   @override
   Widget build(BuildContext context) {
@@ -72,7 +71,8 @@ class _HomeAfterWakeTimeSetState extends State<HomeAfterWakeTimeSet> {
         const SizedBox(height: 30),
 
         // Switch com explicação
-        HomeScreenAfterCustomCard(label: 'Ativar Alarme Sugerido?')
+        HomeScreenAfterCustomCard(label: 'Ativar Alarme Sugerido?', wakeUpTime: widget.wakeUpTime, bedTime: bedTime),
+
       ],
     );
   }
