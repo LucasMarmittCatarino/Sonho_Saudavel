@@ -65,12 +65,6 @@ class _AlarmScreenState extends State<AlarmScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final userStore = context.watch<UserStore>();
-    final sleepSchedule = userStore.sleepSchedule;
-    final sleepTimeAmount = sleepSchedule?['sleepTimeAmount'];
-    final sleepTimeFormatted = sleepTimeAmount != null
-        ? '$sleepTimeAmount horas'
-        : 'Não especificado';
 
     return Scaffold(
       backgroundColor: const Color(0xFF080E1C),
@@ -126,14 +120,6 @@ class _AlarmScreenState extends State<AlarmScreen> {
                       color: Colors.white,
                     ),
                   ],
-                ),
-                const SizedBox(height: 20),
-                Text(
-                  'Você precisa de $sleepTimeFormatted de sono.',
-                  style: const TextStyle(
-                    color: Colors.white,
-                    fontSize: 18,
-                  ),
                 ),
                 const SizedBox(height: 50),
                 SizedBox(

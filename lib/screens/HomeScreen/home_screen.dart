@@ -8,6 +8,19 @@ import '../../components/homeViews/home_before_wake_time_set.dart';
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
 
+  // Função para determinar a saudação com base na hora atual
+  String getGreeting() {
+    final hour = DateTime.now().hour;
+
+    if (hour >= 5 && hour < 12) {
+      return 'Bom dia';
+    } else if (hour >= 12 && hour < 18) {
+      return 'Boa tarde';
+    } else {
+      return 'Boa noite';
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final userStore = context.watch<UserStore>();
@@ -23,8 +36,9 @@ class HomeScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const SizedBox(height: 18),
+            // Texto dinâmico com base na hora do dia
             Text(
-              'Bom dia, $firstName!',
+              '${getGreeting()}, $firstName!',
               style: const TextStyle(
                 fontSize: 25,
                 fontWeight: FontWeight.bold,
@@ -33,6 +47,7 @@ class HomeScreen extends StatelessWidget {
             ),
             const SizedBox(height: 8),
 
+            // Exibe a tela com base no wakeUpTime
             wakeUpTime != null
                 ? HomeAfterWakeTimeSet(wakeUpTime: wakeUpTime, sleepTimeAmount: sleepTimeAmount)
                 : const HomeBeforeWakeTimeSet(),
