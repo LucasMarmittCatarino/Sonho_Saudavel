@@ -41,7 +41,7 @@ class _LoginScreenState extends State<LoginScreen> {
           email: user['email'],
           password: user['password'],
           age: user['age'],
-          gender: user['sex'], // Se for 'sex' no Firestore, mantenha assim
+          gender: user['sex'],
           weight: double.parse(user['weight']),
           height: int.parse(user['height']),
           sleepSchedule: user['sleepSchedule'],

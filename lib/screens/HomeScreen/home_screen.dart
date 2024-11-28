@@ -6,13 +6,13 @@ import '../../components/homeViews/home_after_wake_time_set.dart';
 import '../../components/homeViews/home_before_wake_time_set.dart';
 
 class HomeScreen extends StatelessWidget {
-
   const HomeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     final userStore = context.watch<UserStore>();
     final firstName = StringUtils.splitName(userStore.userName!)['firstName']!;
+    final wakeUpTime = userStore.sleepSchedule?['wakeUpTime'];
 
     return Scaffold(
       backgroundColor: const Color(0xFF080E1C),
@@ -21,9 +21,7 @@ class HomeScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-
             const SizedBox(height: 18),
-
             Text(
               'Bom dia, $firstName!',
               style: const TextStyle(
@@ -32,10 +30,11 @@ class HomeScreen extends StatelessWidget {
                 color: Colors.white,
               ),
             ),
-
             const SizedBox(height: 8),
 
-            const HomeBeforeWakeTimeSet()
+            wakeUpTime != null
+                ? const HomeAfterWakeTimeSet()
+                : const HomeBeforeWakeTimeSet(),
           ],
         ),
       ),
