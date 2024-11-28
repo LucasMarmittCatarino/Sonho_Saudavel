@@ -1,25 +1,36 @@
 import 'package:flutter/material.dart';
 import '../ProfileDetailsScreen/profile_details_screen.dart';
 import '../ConfigurationScreen/configuration_screen.dart';
+import '../../utils/string_utils.dart';
+import '../../store/user_store.dart';
+import 'package:provider/provider.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    // Obtém o estado do usuário a partir da store
+    final userStore = context.watch<UserStore>();
+    final userName = userStore.userName;
+    final userEmail = userStore.userEmail;
+
+    // Divide o nome em partes
+    final nameParts = StringUtils.splitName(userName!);
+    final firstName = nameParts['firstName']!;
+    final lastName = nameParts['lastName']!;
+
     return Scaffold(
       backgroundColor: const Color(0xFF080E1C),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-
             Container(
               height: 250,
               alignment: Alignment.topCenter,
               child: Column(
                 children: <Widget>[
-
                   Container(
                     width: 100,
                     height: 100,
@@ -32,28 +43,29 @@ class ProfileScreen extends StatelessWidget {
                         'lib/assets/png/profile_man.png',
                         fit: BoxFit.cover,
                       ),
-                    )
+                    ),
                   ),
-
-                  const SizedBox(height: 20,),
-
-                  const Text(
-                    'Primeiro nome',
-                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white),
+                  const SizedBox(height: 20),
+                  Text(
+                    firstName,
+                    style: const TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                    ),
                   ),
-
-                  const Text(
-                    'Sobrenome',
-                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.w400, color: Colors.white),
+                  Text(
+                    lastName,
+                    style: const TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.w400,
+                      color: Colors.white,
+                    ),
                   ),
-
-                  const SizedBox(
-                    height: 10,
-                  ),
+                  const SizedBox(height: 10),
                 ],
               ),
             ),
-
             SizedBox(
               width: 230,
               height: 40,
@@ -61,8 +73,9 @@ class ProfileScreen extends StatelessWidget {
                 onPressed: () {
                   Navigator.push(
                     context,
-                      MaterialPageRoute(
-                      builder: (context) => const ProfileDetailsScreen(),
+                    MaterialPageRoute(
+                      builder: (context) =>
+                          ProfileDetailsScreen(userEmail: userEmail!),
                     ),
                   );
                 },
@@ -90,9 +103,7 @@ class ProfileScreen extends StatelessWidget {
                 ),
               ),
             ),
-
             const SizedBox(height: 20),
-
             SizedBox(
               width: 230,
               height: 40,
@@ -100,7 +111,7 @@ class ProfileScreen extends StatelessWidget {
                 onPressed: () {
                   Navigator.push(
                     context,
-                      MaterialPageRoute(
+                    MaterialPageRoute(
                       builder: (context) => const ConfigurationScreen(),
                     ),
                   );

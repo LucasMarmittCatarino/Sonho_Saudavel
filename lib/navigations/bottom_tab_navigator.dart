@@ -8,20 +8,35 @@ class BottomTabNavigator extends StatefulWidget {
   const BottomTabNavigator({super.key});
 
   @override
-  _BottomTabNavigatorState createState() => _BottomTabNavigatorState();
+  BottomTabNavigatorState createState() => BottomTabNavigatorState();
 }
 
-class _BottomTabNavigatorState extends State<BottomTabNavigator> {
+class BottomTabNavigatorState extends State<BottomTabNavigator> {
   int _selectedIndex = 0;
+  bool _isLoading = true; // Indica se o carregamento está em andamento
 
-  final List<Widget> _screens = const [
-    HomeScreen(),
-    ScheduleScreen(),
-    AlarmScreen(),
-    ProfileScreen(),
-  ];
+  late List<Widget> _screens;
 
-  void _onItemTapped(int index) {
+  @override
+  void initState() {
+    super.initState();
+    _initializeScreens();
+  }
+
+  void _initializeScreens() {
+
+    _screens = [
+      HomeScreen(),
+      const ScheduleScreen(),
+      const AlarmScreen(),
+      ProfileScreen(),
+    ];
+    setState(() {
+      _isLoading = false; // Carregamento concluído
+    });
+  }
+
+  void onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
     });
@@ -48,10 +63,12 @@ class _BottomTabNavigatorState extends State<BottomTabNavigator> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xFF080E1C),
-      body: IndexedStack(
-        index: _selectedIndex,
-        children: _screens,
-      ),
+      body: _isLoading
+          ? const Center(child: CircularProgressIndicator())
+          : IndexedStack(
+              index: _selectedIndex,
+              children: _screens,
+            ),
       bottomNavigationBar: Theme(
         data: ThemeData(
           splashColor: Colors.transparent,
@@ -71,7 +88,7 @@ class _BottomTabNavigatorState extends State<BottomTabNavigator> {
             children: [
               BottomNavigationBar(
                 currentIndex: _selectedIndex,
-                onTap: _onItemTapped,
+                onTap: onItemTapped,
                 selectedItemColor: Colors.white,
                 unselectedItemColor: const Color(0xFF5b6a8a),
                 type: BottomNavigationBarType.shifting,

@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import '../LoginScreens/auth_screen.dart';
 import '../LoginScreens/recover_password_screen.dart';
 import '../../navigations/bottom_tab_navigator.dart';
+import '../../services/firestore_service.dart';
+import '../../store/user_store.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -13,37 +16,81 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+  final FirestoreService _firestoreService = FirestoreService();
+
+  Future<void> _login() async {
+    final email = _emailController.text;
+    final password = _passwordController.text;
+
+    if (email.isEmpty || password.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Por favor, preencha todos os campos')),
+      );
+      return;
+    }
+
+    try {
+      final user = await _firestoreService.getUserByEmail(email);
+
+      if (user != null && user['password'] == password) {
+        final userStore = Provider.of<UserStore>(context, listen: false);
+
+        // Salva os dados no estado global usando setUser
+        userStore.setUser(
+          name: user['name'],
+          email: user['email'],
+          password: user['password'],
+          age: user['age'],
+          gender: user['sex'],
+          weight: double.parse(user['weight']),
+          height: int.parse(user['height']),
+          sleepSchedule: user['sleepSchedule'],
+        );
+
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (context) => const BottomTabNavigator(),
+          ),
+        );
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Email ou senha incorretos')),
+        );
+      }
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Erro ao tentar fazer login')),
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          leading: IconButton(
-            icon: const Icon(Icons.arrow_back),
-            onPressed: () {
-              Navigator.pushAndRemoveUntil(
-                context,
-                MaterialPageRoute(builder: (context) => const AuthScreen()),
-                (route) => false,
-              );
-            },
-          ),
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () {
+            Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(builder: (context) => const AuthScreen()),
+              (route) => false,
+            );
+          },
         ),
+      ),
       body: Center(
         child: Padding(
           padding: const EdgeInsets.all(16.0),
-
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-
               const Text(
-                  'Login',
-                  style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold, color: Color(0xFF393839)),
+                'Login',
+                style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold, color: Color(0xFF393839)),
               ),
-
               const SizedBox(height: 55),
-
               SizedBox(
                 width: 300,
                 child: TextField(
@@ -57,10 +104,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                 ),
               ),
-              
-
               const SizedBox(height: 26),
-
               SizedBox(
                 width: 300,
                 child: TextField(
@@ -74,17 +118,15 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                 ),
               ),
-
               const SizedBox(height: 14),
-
               Container(
                 alignment: Alignment.center,
                 child: GestureDetector(
                   onTap: () {
                     Navigator.push(
-                    context,
+                      context,
                       MaterialPageRoute(
-                      builder: (context) => const RecoverPasswordScreen(),
+                        builder: (context) => const RecoverPasswordScreen(),
                       ),
                     );
                   },
@@ -94,23 +136,14 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                 ),
               ),
-
               const SizedBox(height: 26),
-
               Container(
                 alignment: Alignment.center,
                 child: SizedBox(
                   width: 300,
                   height: 45,
                   child: ElevatedButton(
-                    onPressed: () {
-                      Navigator.push(
-                      context,
-                        MaterialPageRoute(
-                        builder: (context) => const BottomTabNavigator(),
-                        ),
-                      );
-                    },
+                    onPressed: _login, // Chama a função de login
                     style: ElevatedButton.styleFrom(
                       backgroundColor: const Color(0xFF504EB4),
                     ),

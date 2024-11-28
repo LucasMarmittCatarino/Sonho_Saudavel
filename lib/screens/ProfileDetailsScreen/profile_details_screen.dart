@@ -1,15 +1,84 @@
 import 'package:flutter/material.dart';
+import '../../services/firestore_service.dart';
 
-class ProfileDetailsScreen extends StatelessWidget {
-  const ProfileDetailsScreen({super.key});
+class ProfileDetailsScreen extends StatefulWidget {
+  final String userEmail;
+  const ProfileDetailsScreen({super.key, required this.userEmail});
+
+  @override
+  _ProfileDetailsScreenState createState() => _ProfileDetailsScreenState();
+}
+
+class _ProfileDetailsScreenState extends State<ProfileDetailsScreen> {
+  final FirestoreService _firestoreService = FirestoreService();
+
+  late TextEditingController nameController;
+  late TextEditingController ageController;
+  late TextEditingController weightController;
+  late TextEditingController heightController;
+  String selectedGender = 'Masculino';
+
+  bool isLoading = true;
+
+  @override
+  void initState() {
+    super.initState();
+    _loadUserData();
+  }
+
+  Future<void> _loadUserData() async {
+    try {
+      final userData = await _firestoreService.getUserByEmail(widget.userEmail);
+      if (userData != null) {
+        setState(() {
+          nameController = TextEditingController(text: userData['name']);
+          ageController = TextEditingController(text: userData['age'].toString());
+          weightController = TextEditingController(text: userData['weight'].toString());
+          heightController = TextEditingController(text: userData['height'].toString());
+          selectedGender = userData['sex'] ?? 'Masculino';
+          isLoading = false;
+        });
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Usuário não encontrado')),
+        );
+      }
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Erro ao carregar os dados do usuário')),
+      );
+    }
+  }
+
+  Future<void> _saveUserData() async {
+    try {
+      final updatedData = {
+        'name': nameController.text,
+        'age': int.parse(ageController.text),
+        'weight': double.parse(weightController.text),
+        'height': int.parse(heightController.text),
+        'sex': selectedGender,
+      };
+
+      await _firestoreService.updateUser(widget.userEmail, updatedData);
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Informações atualizadas com sucesso')),
+      );
+      Navigator.pop(context);
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Erro ao salvar as informações')),
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
-    final nameController = TextEditingController(text: 'Lucas');
-    final ageController = TextEditingController(text: '21');
-    final weightController = TextEditingController(text: '92');
-    final heightController = TextEditingController(text: '186');
-    String selectedGender = 'Masculino';
+    if (isLoading) {
+      return const Scaffold(
+        body: Center(child: CircularProgressIndicator()),
+      );
+    }
 
     return Scaffold(
       appBar: AppBar(
@@ -99,23 +168,21 @@ class ProfileDetailsScreen extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 40),
-
               Center(
                 child: ElevatedButton(
                   style: TextButton.styleFrom(
                     backgroundColor: const Color(0xFF141B2E),
                   ),
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                  child: const Text('Salvar Informações',
+                  onPressed: _saveUserData,
+                  child: const Text(
+                    'Salvar Informações',
                     style: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.w600,
+                      color: Colors.white,
+                      fontWeight: FontWeight.w600,
                     ),
                   ),
                 ),
-              )
+              ),
             ],
           ),
         ),

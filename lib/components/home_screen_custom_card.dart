@@ -6,18 +6,18 @@ class HomeScreenCustomCard extends StatelessWidget {
   final IconData icon;
 
   const HomeScreenCustomCard({
-    Key? key,
+    super.key,
     required this.label,
     required this.time,
     required this.icon,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(right: 20),
       child: Container(
-        width: 195,
+        width: 170,
         height: 100,
         decoration: BoxDecoration(
           color: const Color(0xFF151A2E),

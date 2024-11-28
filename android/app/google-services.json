@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "281107973236",
+    "project_id": "sonho-saudavel",
+    "storage_bucket": "sonho-saudavel.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:281107973236:android:6b549e11839539d22f3d21",
+        "android_client_info": {
+          "package_name": "com.example.sonho_saudavel_teste"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAyXpOFs5M0xWDD8ujs7DNnB8tsywoEk0Q"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
