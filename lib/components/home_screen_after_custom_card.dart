@@ -100,8 +100,8 @@ class _HomeScreenAfterCustomCardState extends State<HomeScreenAfterCustomCard> {
       return;
     }
 
-    String acordar = widget.wakeUpTime;
-    String deitar = "7:40 AM";
+    String acordar = "8:00 AM";
+    String deitar = "12:00 AM";
 
     final tz.TZDateTime now = tz.TZDateTime.now(tz.local);
 
